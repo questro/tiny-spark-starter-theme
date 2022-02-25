@@ -1,0 +1,302 @@
+/*
+ * Theme Name: TINY SPARK STARTER THEME
+ * Theme URI: https://petescott.ca/
+ * Description: Responsive Custom WordPress starter theme 
+ * Author: Pete Scott
+ * Author URI: https://petescott.ca 
+ * Description: A block-editor friendly custom theme with theme.json enabled.   
+ * Version: 1.0
+ * License: GPL
+ * License URI: LICENSE
+ * Text Domain: tiny_spark
+ * Tags: translation-ready, block-patterns 
+*/
+
+/**
+*   TODOS
+*   # Properly enqueue fonts (look at other tiny theme for this ) 
+
+
+*   # Conditional archive, single, category, author templates (ready for CPT) 
+
+*   # Page layouts not covered by theme.json
+*       # Make sure grid works for nested blocks
+*   # Any basic block patterns to set up as templates? 
+*   # Page templates: full width / wide / narrow
+
+*   # Accessibility features
+*   # Understand and test Skip Link settings (#primary)  / Make it bigger 
+*   # Accessible menus (mobile, footer, primary, secondary)
+
+*   # Basic footer
+*   # ASK: Why is wp_head() outputting svgs? 
+*   # Add Ajax for loading more posts
+*   # Properly set up: 
+        # Fonts (theme.json + functions.php)
+        # Color palette (theme.json)
+        # editor styles
+        # spacing
+    # Clean up functions.php with require /inc/ 
+    # Use classes to set up theme
+    # Enable WooCommerce 
+    # DONE: Normalize (enqueue separately)
+    # DONE: Unload Jquery?  
+*/
+
+/* Not sure where to put these */
+
+
+
+/* Custom Alignment Rules with CSS Grid */ 
+
+@supports (display: flex) {
+    .entry-header, 
+    .entry-footer,
+    .entry-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .entry-header,
+    .entry-footer,
+    .entry-content > * {
+        width: 50vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .entry-footer > .alignwide,
+    .entry-content > .alignwide {
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .entry-footer > .alignfull,
+    .entry-content > .alignfull {
+        width: 100vw;
+        margin-left: 0;
+        margin-right: 0;
+    } 
+}
+/*  
+@supports (display: grid) {
+
+    .entry-content {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    .entry-content > * {
+        grid-column: 3/-3;
+    }
+
+    .entry-content > .alignwide {
+        grid-column: 2/-2;
+    }
+
+    .entry-content > .alignfull {
+        grid-column: 1/-1;
+    } 
+    
+    @media screen and (min-width: 1000px) {
+        .entry-content {
+            grid-template-columns: repeat(15, 1fr);
+        }
+    
+        .entry-content > * {
+            grid-column: 5/-5;
+        }
+    
+        .entry-content > .alignwide {
+            grid-column: 3/-3;
+        }
+    
+        .entry-content > .alignfull {
+            grid-column: 1/-1;
+        } 
+    }  
+} */
+
+
+
+/* Allow for admin bar and header nav */
+.admin-bar .header-nav-wrapper,
+.admin-bar .header-nav-wrapper {
+    margin-top: 46px;
+}
+
+@media screen and (min-width: 783px ) {
+    .admin-bar .header-nav-wrapper,
+    .admin-bar .header-nav-wrapper {
+        margin-top: 32px;
+    }
+}
+
+
+/* Mobile Navigation Menu - Mobile */ 
+
+.mobile-menu a:link,
+.mobile-menu a:visited,
+.mobile-menu span,
+.close-btn-toggle {
+    color: white !important;
+}
+
+.primary-menu a:link, 
+.primary-menu a:visited, 
+.primary-menu span {
+    color: #000;
+}
+
+.primary-menu a:hover  {
+    background-color: lightblue;
+}
+
+.primary-menu a:active {
+    background-color: rgb(211, 211, 8);
+}
+
+a:focus {
+    border: 1px solid red;
+}
+
+/* Primary Navigation Menu - Desktop */ 
+
+.primary-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 2rem;
+}
+
+
+/* JS Toggle Menu */ 
+
+
+.nav-toggle-btn-wrapper button {
+    display: block;
+    color: black; 
+}
+
+.header-nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+
+@media only screen and (max-width: 999px) {
+
+  
+    .mobile-menu-wrapper {
+        display: block;  
+    }
+
+    .close-btn-toggle {
+        cursor: pointer;
+    }
+
+    .mobile-menu {
+        display: block;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        right: -100%;
+        bottom: 0;
+        z-index: 5;
+        margin-top: 10rem;
+        background-color: black;
+        list-style: none;
+    }
+    .mobile-menu .menu-item-has-children ul {
+        display: none;
+    }
+
+    .mobile-menu.is-visible {
+        opacity: 1;
+        right: 0;
+        left: 0;
+    }
+
+    .nav-toggle-btn-wrapper {
+        margin: 0;
+        position: relative;
+        z-index: 6;
+    }
+
+    .primary-menu-wrapper {
+        display: none;
+    }
+}
+
+
+@media only screen and (min-width: 1000px) {
+
+    .header-nav-wrapper {
+        display: block;
+    }
+
+    .header-nav-wrapper .navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .mobile-menu-wrapper {
+        display: none;
+    }
+
+
+    .primary-menu-wrapper {
+        display: flex;
+    }
+
+    .primary-menu .menu-item-has-children ul {
+        display: none;
+    }
+
+    .primary-menu li {
+        margin: 0 1rem;
+    }
+    
+    .primary-menu li span {
+        margin-top: 0.3rem;
+    }
+
+    /* on hover rules for 2nd level menu */ 
+
+    .primary-menu .menu-item {
+        position: relative;
+    }
+
+    .primary-menu .menu-item-has-children:hover .sub-menu {
+        display: block;
+        position: absolute;
+        left: -5%;
+        min-width: 200px;
+        list-style: none;
+        background-color: grey;
+        padding: 0.75rem 0.75rem;
+    }
+
+    .primary-menu .sub-menu li {
+       padding: 0.5rem;
+    }
+
+
+    .primary-menu  .sub-menu li {
+        margin: 0;
+    }
+
+    .toggle-btn-wrapper {
+        display: none;
+    }
+
+}
+
+
